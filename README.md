@@ -9,5 +9,6 @@ ZfcUserDoctrineMongoODM is a MongoDb storage adapter for [ZfcUser](https://githu
 Dependencies
 ------------
 
+- [ZfcUser](https://github.com/ZF-Commons/ZfcUser)
 - [DoctrineModule](https://github.com/doctrine/DoctrineModule)
 - [DoctrineMongoODMModule](https://github.com/doctrine/DoctrineMongoODMModule)
