@@ -4,15 +4,15 @@ namespace ZfcUserDoctrineMongoODM\Mapper;
 
 use Doctrine\ODM\MongoDB\DocumentManager,
     ZfcUser\Module as ZfcUser,
-    ZfcUser\Model\User as UserModel,
-    ZfcUser\Model\Mapper\User as UserMapper,
+    ZfcUser\Model\UserInterface,
+    ZfcUser\Model\Mapper\UserMapperInterface,
     ZfcBase\EventManager\EventProvider;
 
-class UserMongoDB extends EventProvider implements UserMapper
+class UserMongoDB extends EventProvider implements UserMapperInterface
 {
     protected $dm;
 
-    public function persist(UserModel $user)
+    public function persist(UserInterface $user)
     {
         $dm = $this->getDocumentManager();
         $this->events()->trigger(__FUNCTION__ . '.pre', $this, array('user' => $user, 'em' => $dm));

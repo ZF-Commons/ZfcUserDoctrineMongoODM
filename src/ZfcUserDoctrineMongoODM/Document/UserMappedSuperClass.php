@@ -2,7 +2,7 @@
 
 namespace ZfcUserDoctrineMongoODM\Document;
 
-use ZfcUser\Model\UserBase;
+use ZfcUser\Model\User;
 
-abstract class UserMappedSuperClass extends UserBase
+abstract class UserMappedSuperClass extends User
 {}
