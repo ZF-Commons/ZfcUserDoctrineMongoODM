@@ -4,19 +4,19 @@ namespace ZfcUserDoctrineMongoODM\Mapper;
 
 use Doctrine\ODM\MongoDB\DocumentManager,
     ZfcUser\Module as ZfcUser,
-    ZfcUser\Model\UserMeta as UserMetaModel,
-    ZfcUser\Model\Mapper\UserMeta as UserMetaMapper,
+    ZfcUser\Model\UserMetaInterface,
+    ZfcUser\Model\Mapper\UserMetaMapperInterface,
     ZfcBase\EventManager\EventProvider;
 
-class UserMetaMongoDB extends EventProvider implements UserMetaMapper
+class UserMetaMongoDB extends EventProvider implements UserMetaMapperInterface
 {
 
-    public function add(UserMetaModel $userMeta)
+    public function add(UserMetaInterface $userMeta)
     {
         return $this->persist($userMeta);
     }
 
-    public function update(UserMetaModel $userMeta)
+    public function update(UserMetaInterface $userMeta)
     {
         return $this->persist($userMeta);
     }
@@ -29,7 +29,7 @@ class UserMetaMongoDB extends EventProvider implements UserMetaMapper
         return $userMeta;
     }
 
-    public function persist(UserMetaModelInterface $userMeta)
+    public function persist(UserMetaInterface $userMeta)
     {
         $dm = $this->getDocumentManager();
         $this->events()->trigger(__FUNCTION__ . '.pre', $this, array('userMeta' => $userMeta, 'em' => $dm));

@@ -2,7 +2,7 @@
 
 namespace ZfcUserDoctrineMongoODM\Document;
 
-use ZfcUser\Model\UserMetaBase;
+use ZfcUser\Model\UserMeta;
 
-class UserMetaMappedSuperClass extends UserMetaBase
+class UserMetaMappedSuperClass extends UserMeta
 {}
