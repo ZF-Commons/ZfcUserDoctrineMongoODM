@@ -6,7 +6,7 @@
 
     <mapped-superclass name="ZfcUserDoctrineMongoODM\Document\UserMappedSuperClass" collection="user">
 
-        <field fieldName="userId" id="true" />
+        <field fieldName="user_id" id="true" />
         <field fieldName="username" type="string" unique="true" nullable="true" />
         <field fieldName="email" type="string" unique="true" length="100" />
         <field fieldName="displayName" type="string" length="50" nullable="true" />

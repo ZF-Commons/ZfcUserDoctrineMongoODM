@@ -5,7 +5,7 @@ namespace ZfcUserDoctrineMongoODM\Mapper;
 use Doctrine\ODM\MongoDB\DocumentManager,
     ZfcUser\Module as ZfcUser,
     ZfcUser\Model\UserMetaInterface,
-    ZfcUser\Model\Mapper\UserMetaMapperInterface,
+    ZfcUser\Model\UserMetaMapperInterface,
     ZfcBase\EventManager\EventProvider;
 
 class UserMetaMongoDB extends EventProvider implements UserMetaMapperInterface
