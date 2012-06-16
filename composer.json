@@ -1,0 +1,40 @@
+{
+    "name": "zf-commons/zfc-user-doctrine-orm",
+    "description": "Doctrine2 ORM storage adapter for ZfcUser.",
+    "type": "library",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "https://github.com/dekoo/ZfcUserDoctrineMongoODM",
+    "authors": [
+        {
+            "name": "Evan Coury",
+            "email": "me@evancoury.com",
+            "homepage": "http://blog.evan.pro/"
+        },
+        {
+            "name": "Kyle Spraggs",
+            "email": "theman@spiffyjr.me",
+            "homepage": "http://www.spiffyjr.me/"
+        },
+        {
+            "name": "Denis Kozlov",
+            "email": "dv.kozloff@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "dev-master",
+        "zf-commons/zfc-base": "dev-master",
+        "zf-commons/zfc-user": "dev-master",
+        "doctrine/DoctrineORMModule": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfcUserDoctrineORM": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}
