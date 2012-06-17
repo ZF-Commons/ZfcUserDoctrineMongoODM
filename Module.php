@@ -2,16 +2,16 @@
 
 namespace ZfcUserDoctrineMongoODM;
 
-use Zend\Module\Manager,
-    Zend\Module\Consumer\AutoloaderProvider,
-    ZfcUserDoctrineMongoODM\Event\ResolveTargetEntityListener,
-    ZfcUser\Module as ZfcUser,
-    Doctrine\ODM\MongoDB\Events,
-    Zend\EventManager\StaticEventManager;
+use Zend\ModuleManager\ModuleManagerInterface,
+    Zend\ModuleManager\Feature\AutoloaderProviderInterface,
+    Zend\ModuleManager\Feature\ConfigProviderInterface,
+	Zend\ModuleManager\Feature\InitProviderInterface;	
 
-class Module implements AutoloaderProvider
+class Module implements AutoloaderProviderInterface,
+		ConfigProviderInterface,
+		InitProviderInterface
 {
-    public function init(Manager $moduleManager)
+    public function init(ModuleManagerInterface $manager)
     {
         // @TODO: Fix this for the ODM
         //$events = StaticEventManager::getInstance();
