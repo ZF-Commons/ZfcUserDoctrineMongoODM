@@ -2,22 +2,24 @@
 
 namespace ZfcUserDoctrineMongoODM;
 
-use Zend\Module\Manager,
-    Zend\Module\Consumer\AutoloaderProvider,
-    ZfcUserDoctrineMongoODM\Event\ResolveTargetEntityListener,
-    ZfcUser\Module as ZfcUser,
-    Doctrine\ODM\MongoDB\Events,
-    Zend\EventManager\StaticEventManager;
+use Doctrine\ODM\MongoDB\Mapping\Driver\XmlDriver;
+use ZfcUser\Module as ZfcUser;
 
-class Module implements AutoloaderProvider
+class Module
 {
-    public function init(Manager $moduleManager)
+    public function onBootstrap($e)
     {
-        // @TODO: Fix this for the ODM
-        //$events = StaticEventManager::getInstance();
-        //$events->attach('bootstrap', 'bootstrap', array($this, 'attachDoctrineEvents'), 100);
-    }
+        $app     = $e->getParam('application');
+        $sm      = $app->getServiceManager();
+        $options = $sm->get('zfcuser_module_options');
 
+        // Add the default entity driver only if specified in configuration
+        if ($options->getEnableDefaultEntities()) {
+            $chain = $sm->get('doctrine.driver.odm_default');
+            $chain->addDriver(new XmlDriver(__DIR__ . '/config/xml'), 'ZfcUserDoctrineMongoODM\Document');
+        }
+    }
+    
     public function getAutoloaderConfig()
     {
         return array(
@@ -31,24 +33,31 @@ class Module implements AutoloaderProvider
             ),
         );
     }
+    
+    public function getServiceConfiguration()
+    {
+        return array(
+            'aliases' => array(
+                'zfcuser_doctrine_dm' => 'doctrine.documentmanager.odm_default',
 
+            ),
+            'factories' => array(
+                'zfcuser_module_options' => function ($sm) {
+                    $config = $sm->get('Configuration');
+                    return new Options\ModuleOptions(isset($config['zfcuser']) ? $config['zfcuser'] : array());
+                },
+                'zfcuser_user_mapper' => function ($sm) {
+                    return new \ZfcUserDoctrineMongoODM\Mapper\UserMongoDB(
+                        $sm->get('zfcuser_doctrine_dm'),
+                        $sm->get('zfcuser_module_options')
+                    );
+                },
+            ),
+        );
+    }
+    
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
-    }
-
-    public function attachDoctrineEvents($e)
-    {
-        $app = $e->getParam('application');
-        $locator = $app->getLocator();
-        $em = $locator->get('zfcuser_mongo_dm');
-        $evm = $em->getEventManager();
-        $listener = new ResolveTargetEntityListener;
-        $listener->addResolveTargetEntity(
-            'ZfcUser\Model\UserInterface',
-            ZfcUser::getOption('user_model_class'),
-            array()
-        );
-        $evm->addEventListener(Events::loadClassMetadata, $listener);
     }
 }
