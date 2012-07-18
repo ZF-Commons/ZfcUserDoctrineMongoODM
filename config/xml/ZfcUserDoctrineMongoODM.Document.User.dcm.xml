@@ -4,15 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                   http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="ZfcUserDoctrineMongoODM\Document\User" collection="users">
-
-        <field name="id" id="true"/>
-
-        <field name="username" type="string"/>
-        <field name="email" type="string"/>
-<!-- check case mismatch CamelCase or underscores        -->
-        <field name="display_name" type="string" />
-        <field name="password" type="string" />
+    <document name="ZfcUserDoctrineMongoODM\Document\User" collection="user">
 
     </document>
 

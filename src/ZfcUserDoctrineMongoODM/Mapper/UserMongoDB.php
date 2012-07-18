@@ -3,45 +3,47 @@
 namespace ZfcUserDoctrineMongoODM\Mapper;
 
 use Doctrine\ODM\MongoDB\DocumentManager,
-    ZfcUser\Module as ZfcUser,
-    ZfcUser\Model\UserInterface,
-    ZfcUser\Model\Mapper\UserMapperInterface,
-    ZfcBase\EventManager\EventProvider;
+    ZfcUserDoctrineMongoODM\Options\ModuleOptions;
 
-class UserMongoDB extends EventProvider implements UserMapperInterface
+class UserMongoDB implements \ZfcUser\Mapper\UserInterface
 {
+    /**
+     * @var \Doctrine\ODM\DocumentManager
+     */
     protected $dm;
-
-    public function persist(UserInterface $user)
+    
+    /**
+     * @var \ZfcUserDoctrineORM\Options\ModuleOptions
+     */
+    protected $options;
+    
+    public function __construct(DocumentManager $dm, ModuleOptions $options)
     {
-        $dm = $this->getDocumentManager();
-        $this->events()->trigger(__FUNCTION__ . '.pre', $this, array('user' => $user, 'em' => $dm));
-        $dm->persist($user);
-        $this->events()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'em' => $dm));
-        $dm->flush();
+        $this->dm      = $dm;
+        $this->options = $options;
     }
 
     public function findByEmail($email)
     {
         $dm = $this->getDocumentManager();
-        $user = $this->getUserRepository()->findOneBy(array('email' => $email));
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
+        $class = $this->options->getUserEntityClass();
+        $user = $dm->getRepository($class)->findOneBy(array('email' => $email));
         return $user;
     }
 
     public function findByUsername($username)
     {
         $dm = $this->getDocumentManager();
-        $user = $this->getUserRepository()->findOneBy(array('username' => $username));
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
+        $class = $this->options->getUserEntityClass();
+        $user = $dm->getRepository($class)->findOneBy(array('username' => $username));
         return $user;
     }
     
     public function findById($id)
     {
         $dm = $this->getDocumentManager();
-        $user = $this->getUserRepository()->find($id);
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
+        $class = $this->options->getUserEntityClass();
+        $user = $dm->getRepository($class)->findOneBy(array('id' => $id));
         return $user;
     }
 
@@ -58,7 +60,30 @@ class UserMongoDB extends EventProvider implements UserMapperInterface
 
     public function getUserRepository()
     {
-    	$class = ZfcUser::getOption('user_model_class');
+    	$class = ZfcUser::getOption('user_entity_class');
         return $this->getDocumentManager()->getRepository($class);
+    }
+    
+    public function persist($document)
+    {
+        $dm = $this->getDocumentManager();
+        $dm->persist($document);
+        $dm->flush();
+    }
+    
+    public function insert($document, $tableName = null, HydratorInterface $hydrator = null)
+    {
+        $this->dm->persist($document);
+        $this->dm->flush();
+    }
+
+    public function update($document, $where = null, $tableName = null, HydratorInterface $hydrator = null)
+    {
+        if (!$where) {
+            $where = 'id = ' . $document->getId();
+        }
+
+        $this->dm->persist($document);
+        $this->dm->flush();
     }
 }
