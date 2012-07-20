@@ -19,7 +19,7 @@ class Module
             $chain->addDriver(new XmlDriver(__DIR__ . '/config/xml'), 'ZfcUserDoctrineMongoODM\Document');
         }
     }
-    
+
     public function getAutoloaderConfig()
     {
         return array(
@@ -33,8 +33,8 @@ class Module
             ),
         );
     }
-    
-    public function getServiceConfiguration()
+
+    public function getServiceConfig()
     {
         return array(
             'aliases' => array(
@@ -43,7 +43,7 @@ class Module
             ),
             'factories' => array(
                 'zfcuser_module_options' => function ($sm) {
-                    $config = $sm->get('Configuration');
+                    $config = $sm->get('Config');
                     return new Options\ModuleOptions(isset($config['zfcuser']) ? $config['zfcuser'] : array());
                 },
                 'zfcuser_user_mapper' => function ($sm) {
@@ -55,7 +55,7 @@ class Module
             ),
         );
     }
-    
+
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
