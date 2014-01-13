@@ -13,7 +13,7 @@ class UserMongoDB implements \ZfcUser\Mapper\UserInterface
     protected $dm;
     
     /**
-     * @var \ZfcUserDoctrineORM\Options\ModuleOptions
+     * @var \ZfcUserDoctrineMongoODM\Options\ModuleOptions
      */
     protected $options;
     
