@@ -1,0 +1,40 @@
+{
+    "name": "zf-commons/zfc-user-doctrine-mongo-odm",
+    "description": "Doctrine2 Mongo storage adapter for ZfcUser.",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "zf2"
+    ],
+    "homepage": "https://github.com/ZF-Commons/ZfcUserDoctrineMongoODM",
+    "authors": [
+        {
+            "name": "Evan Coury",
+            "email": "me@evancoury.com",
+            "homepage": "http://blog.evan.pro/"
+        },
+        {
+            "name": "Kyle Spraggs",
+            "email": "theman@spiffyjr.me",
+            "homepage": "http://www.spiffyjr.me/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "zf-commons/zfc-user": "0.*",
+        "doctrine/doctrine-mongo-odm-module": "0.8.*"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-0": {
+            "ZfcUserDoctrineMongoODM": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    }
+}
