@@ -10,7 +10,7 @@ Installation
 
 ### Composer
 
-1. Install module
+1. Install module   
 Go to the [release tab](https://github.com/ZF-Commons/ZfcUserDoctrineMongoODM/releases) and make a note of the most recent version.
 Run the following command from your application directory:
 ```php composer.phar require zf-commons/zfc-user-doctrine-mongo-odm```
