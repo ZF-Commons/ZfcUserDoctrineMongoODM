@@ -60,7 +60,7 @@ class UserMongoDB implements \ZfcUser\Mapper\UserInterface
 
     public function getUserRepository()
     {
-    	$class = ZfcUser::getOption('user_entity_class');
+    	$class = $this->options->getUserEntityClass();
         return $this->getDocumentManager()->getRepository($class);
     }
     
