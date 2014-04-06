@@ -4,20 +4,33 @@ namespace ZfcUserDoctrineMongoODM\Mapper;
 
 use Doctrine\ODM\MongoDB\DocumentManager,
     ZfcUser\Module as ZfcUser,
-    ZfcUser\Model\UserInterface,
-    ZfcUser\Model\Mapper\UserMapperInterface,
+    ZfcUser\Entity\UserInterface,
+    ZfcUser\Mapper\UserInterface as UserMapperInterface,
     ZfcBase\EventManager\EventProvider;
 
 class UserMongoDB extends EventProvider implements UserMapperInterface
 {
     protected $dm;
+    protected $options;
+
+    public function insert($user)
+    {
+        $dm = $this->getDocumentManager();
+        $this->persist($user);
+        return $user;
+    }
+
+    public function update($user)
+    {
+        $dm = $this->getDocumentManager();
+        $this->persist($user);
+        return $user;
+    }
 
     public function persist(UserInterface $user)
     {
         $dm = $this->getDocumentManager();
-        $this->events()->trigger(__FUNCTION__ . '.pre', $this, array('user' => $user, 'em' => $dm));
         $dm->persist($user);
-        $this->events()->trigger(__FUNCTION__ . '.post', $this, array('user' => $user, 'em' => $dm));
         $dm->flush();
     }
 
@@ -25,7 +38,6 @@ class UserMongoDB extends EventProvider implements UserMapperInterface
     {
         $dm = $this->getDocumentManager();
         $user = $this->getUserRepository()->findOneBy(array('email' => $email));
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
         return $user;
     }
 
@@ -33,7 +45,6 @@ class UserMongoDB extends EventProvider implements UserMapperInterface
     {
         $dm = $this->getDocumentManager();
         $user = $this->getUserRepository()->findOneBy(array('username' => $username));
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
         return $user;
     }
     
@@ -41,7 +52,6 @@ class UserMongoDB extends EventProvider implements UserMapperInterface
     {
         $dm = $this->getDocumentManager();
         $user = $this->getUserRepository()->find($id);
-        $this->events()->trigger(__FUNCTION__, $this, array('user' => $user, 'em' => $dm));
         return $user;
     }
 
@@ -58,7 +68,24 @@ class UserMongoDB extends EventProvider implements UserMapperInterface
 
     public function getUserRepository()
     {
-    	$class = ZfcUser::getOption('user_model_class');
+    	$class = $this->getOptions()->getUserEntityClass();
         return $this->getDocumentManager()->getRepository($class);
     }
+
+    /**
+     * @param mixed $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
 }

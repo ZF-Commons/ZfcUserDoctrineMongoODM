@@ -6,17 +6,12 @@
 
     <mapped-superclass name="ZfcUserDoctrineMongoODM\Document\UserMappedSuperClass" collection="user">
 
-        <field fieldName="userId" id="true" />
+        <field fieldName="id" id="true" />
         <field fieldName="username" type="string" unique="true" nullable="true" />
         <field fieldName="email" type="string" unique="true" length="100" />
         <field fieldName="displayName" type="string" length="50" nullable="true" />
         <field fieldName="password" type="string" length="128" />
-        <field fieldName="lastLogin" type="date" nullable="true" />
-        <field fieldName="lastIp" type="int" nullable="true" />
-        <field fieldName="registerTime" type="date" />
-        <field fieldName="registerIp" type="int" />
-        <field fieldName="active" type="boolean" />
-        <field fieldName="enabled" type="boolean" />
+        <field fieldName="state" type="int" nullable="true" />
 
     </mapped-superclass>
 
