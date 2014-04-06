@@ -8,9 +8,9 @@
 
         <field fieldName="id" id="true" />
         
-        <field fieldName="username" type="string" unique="true" nullable="true" />
-        <field fieldName="email" type="string" unique="true" length="100" />
-        <field fieldName="display_name" type="string" length="50" nullable="true" />
+        <field fieldName="username" type="string" unique="true" sparse="true" />
+        <field fieldName="email" type="string" unique="true" sparse="true" length="100" />
+        <field fieldName="displayName" name="display_name" type="string" length="50" />
         <field fieldName="password" type="string" length="128" />
 
     </mapped-superclass>
