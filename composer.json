@@ -22,8 +22,9 @@
     "require": {
         "php": ">=5.3.3",
         "zf-commons/zfc-user": "0.*",
-        "doctrine/doctrine-mongo-odm-module": "~0.8"
+        "doctrine/doctrine-mongo-odm-module": "~0.9.*"
     },
+    "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
             "dev-master": "0.1.x-dev"
