@@ -73,17 +73,15 @@ class UserMongoDB implements \ZfcUser\Mapper\UserInterface
     
     public function insert(\ZfcUser\Entity\UserInterface $user)
     {
-        $this->dm->persist($document);
+        $this->dm->persist($user);
         $this->dm->flush();
     }
 
     public function update(\ZfcUser\Entity\UserInterface $user)
     {
-        if (!$where) {
-            $where = 'id = ' . $document->getId();
-        }
+       
 
-        $this->dm->persist($document);
+        $this->dm->persist($user);
         $this->dm->flush();
     }
 }
