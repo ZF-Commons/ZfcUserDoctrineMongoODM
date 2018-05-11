@@ -13,11 +13,6 @@ class Module
         $sm      = $app->getServiceManager();
         $options = $sm->get('zfcuser_module_options');
 
-        // Add the default entity driver only if specified in configuration
-        if ($options->getEnableDefaultEntities()) {
-            $chain = $sm->get('doctrine.driver.odm_default');
-            $chain->addDriver(new XmlDriver(__DIR__ . '/config/xml'), 'ZfcUserDoctrineMongoODM\Document');
-        }
     }
 
     public function getAutoloaderConfig()
