@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.3.3",
         "zf-commons/zfc-user": "3.*",
-        "doctrine/doctrine-mongo-odm-module": "~1.0"
+        "doctrine/doctrine-mongo-odm-module": "^1.0"
     },
     "minimum-stability": "dev",
     "extra": {
